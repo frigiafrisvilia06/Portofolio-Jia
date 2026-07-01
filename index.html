@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio - {{ profil.nama_panggilan if profil else 'Jia' }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='utama/css/style.css') }}">
+</head>
+
+<body>
+
+    <header class="header">
+        <a href="/admin/login" class="logo">{{ profil.nama_panggilan if profil else 'Jia' }}.</a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <!-- Decorative SVG sparkles -->
+        <svg class="home-decor sparkle-1" width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 0L23.5 16.5L40 20L23.5 23.5L20 40L16.5 23.5L0 20L16.5 16.5L20 0Z" fill="#c084fc"/>
+        </svg>
+        <svg class="home-decor sparkle-2" width="30" height="30" viewBox="0 0 40 40" fill="none">
+            <path d="M20 0L23.5 16.5L40 20L23.5 23.5L20 40L16.5 23.5L0 20L16.5 16.5L20 0Z" fill="#f472b6"/>
+        </svg>
+        <svg class="home-decor sparkle-3" width="24" height="24" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" fill="#a855f7" opacity="0.5"/>
+        </svg>
+
+        <h3>Selamat Datang di Portofolio Saya</h3>
+        <h1>Halo, Saya <span>{{ profil.nama_lengkap if profil and profil.nama_lengkap else 'Nama Anda' }}</span></h1>
+        <p>{{ profil.peran if profil and profil.peran else 'Seorang Developer' }}{% if profil and profil.universitas %} di {{ profil.universitas }}{% endif %}.</p>
+        <a href="#projects" class="btn">Lihat Proyek Saya</a>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="heading fade-in">Tentang Saya</h2>
+        <div class="about-container fade-in">
+            <div class="about-img-wrapper">
+                <div class="about-img-box">
+                    {% if profil.avatar_url %}
+                    <img src="{{ profil.avatar_url }}" alt="Foto Profil" style="width: 100%; height: 100%; object-fit: cover; border-radius: 28px;">
+                    {% else %}
+                    <i class="fa-solid fa-user about-placeholder-icon"></i>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="about-content">
+                <h3>{{ profil.peran if profil and profil.peran else 'Developer' }}</h3>
+                {% if profil.peran %}<span class="about-role-badge">{{ profil.peran }}</span>{% endif %}
+                <p>{{ profil.deskripsi if profil and profil.deskripsi else 'Belum ada deskripsi. Silakan isi melalui Admin Panel.' }}</p>
+                <div class="about-divider"></div>
+                {% if profil and profil.alamat %}
+                <div class="about-info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Berdomisili di {{ profil.alamat }}</span>
+                </div>
+                {% endif %}
+                <div class="about-info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Hubungi saya di: <strong>{{ profil.email if profil and profil.email else 'email@contoh.com' }}</strong></span>
+                </div>
+                <a href="#contact" class="btn">Hubungi Saya</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <h2 class="heading fade-in">Keahlian</h2>
+        <div class="skills-container">
+            {% if skills %}
+            {% for skill in skills %}
+            <div class="skill-box fade-in">
+                {% if 'python' in skill.nama_skill|lower %}
+                <i class="fa-brands fa-python"></i>
+                {% elif 'sql' in skill.nama_skill|lower or 'data' in skill.nama_skill|lower %}
+                <i class="fa-solid fa-database"></i>
+                {% elif 'flask' in skill.nama_skill|lower %}
+                <i class="fa-solid fa-server"></i>
+                {% elif 'html' in skill.nama_skill|lower %}
+                <i class="fa-brands fa-html5"></i>
+                {% elif 'js' in skill.nama_skill|lower or 'javascript' in skill.nama_skill|lower %}
+                <i class="fa-brands fa-js"></i>
+                {% else %}
+                <i class="fa-solid fa-code"></i>
+                {% endif %}
+                <h3>{{ skill.nama_skill }}</h3>
+                {% if skill.kategori %}
+                <span style="font-size: 12px; color: var(--text-muted); display: block; margin-top: 5px;">{{ skill.kategori }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% else %}
+            <p style="color: var(--text-muted); text-align: center; width: 100%; padding: 20px 0;">Belum ada keahlian. Silakan tambahkan melalui Admin Panel.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="experience" id="experience">
+        <h2 class="heading fade-in">Pengalaman</h2>
+        <div class="timeline">
+            {% if experiences %}
+            {% for exp in experiences %}
+            <div class="timeline-item fade-in">
+                <span>{{ exp.tanggal_mulai }} - {{ exp.tanggal_selesai if exp.tanggal_selesai else 'Sekarang' }}</span>
+                <h3>{{ exp.posisi }}</h3>
+                <h4>{{ exp.perusahaan_organisasi }}</h4>
+                <p>{{ exp.deskripsi }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p style="color: var(--text-muted); text-align: center; width: 100%; padding: 20px 0;">Belum ada pengalaman. Silakan tambahkan melalui Admin Panel.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="heading fade-in">Proyek Saya</h2>
+        <div class="projects-container">
+            {% if projects %}
+            {% for proj in projects %}
+            <div class="project-card fade-in">
+                <div class="project-img-box">
+                    {% if proj.gambar_url %}
+                    <img src="{{ proj.gambar_url }}" alt="{{ proj.judul_proyek }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% else %}
+                    <i class="fa-solid fa-box project-placeholder-icon"></i>
+                    {% endif %}
+                </div>
+                <div class="project-content">
+                    <h3>{{ proj.judul_proyek }}</h3>
+                    <p>{{ proj.deskripsi }}</p>
+                    <div class="project-links">
+                        {% if proj.link_proyek %}
+                        <a href="{{ proj.link_proyek }}" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Link</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p style="color: var(--text-muted); text-align: center; width: 100%; padding: 20px 0;">Belum ada proyek. Silakan tambahkan melalui Admin Panel.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="heading fade-in">Hubungi <span style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Saya</span></h2>
+        <form id="contact-form" action="/api/contact" method="POST" class="fade-in">
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Nama Lengkap" required>
+                <input type="email" name="email" placeholder="Alamat Email" required>
+            </div>
+            <div class="input-box">
+                <input type="text" name="subject" placeholder="Subjek Pesan" required>
+            </div>
+            <textarea name="message" cols="30" rows="10" placeholder="Tulis pesan Anda di sini..." required></textarea>
+            <button type="submit" class="btn">Kirim Pesan</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-socials">
+            <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:{{ profil.email if profil and profil.email else '' }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2026 {{ profil.nama_lengkap if profil and profil.nama_lengkap else 'Nama Anda' }}. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top-btn" aria-label="Scroll to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // ===== Scroll Animations =====
+        document.addEventListener("DOMContentLoaded", function () {
+            // Fade-in on scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Scroll-to-top button
+            const scrollBtn = document.getElementById('scroll-top-btn');
+            window.addEventListener('scroll', () => {
+                scrollBtn.classList.toggle('visible', window.scrollY > 400);
+            });
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ===== Contact Form =====
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Sedang Mengirim...';
+                submitBtn.disabled = true;
+
+                const nameInput = form.querySelector('input[name="name"]');
+                const emailInput = form.querySelector('input[name="email"]');
+                const subjectInput = form.querySelector('input[name="subject"]');
+                const messageInput = form.querySelector('textarea[name="message"]');
+
+                const payload = {
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    subject: subjectInput.value,
+                    message: messageInput.value
+                };
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        alert(data.message || 'Pesan Anda berhasil terkirim!');
+                        form.reset();
+                    } else {
+                        alert('Gagal mengirim pesan: ' + (data.message || 'Terjadi kesalahan.'));
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    alert('Gagal menghubungi server. Pastikan koneksi internet Anda aktif.');
+                } finally {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

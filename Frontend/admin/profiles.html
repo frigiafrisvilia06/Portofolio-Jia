@@ -1,0 +1,140 @@
+{% extends 'Frontend/admin/base.html' %}
+
+{% block title %}Kelola Akun - Admin Panel{% endblock %}
+{% block header_title %}Kelola Akun{% endblock %}
+
+{% block content %}
+<div class="account-manager-container" style="display: flex; flex-direction: column; gap: 30px;">
+    
+    <div class="admin-card">
+        <h3 style="font-weight: 600; margin-bottom: 20px; font-size: 18px;">Data Diri</h3>
+        <form id="form-data-diri">
+            
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Nama Lengkap</label>
+                    <input type="text" id="nama-lengkap" placeholder="Your Full Name" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Nama Panggilan</label>
+                    <input type="text" id="nama-panggilan" placeholder="Your Nickname" required>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Peran / Jabatan</label>
+                    <input type="text" id="profile-peran" placeholder="Contoh: Backend Developer & Python Enthusiast">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Deskripsi Singkat (Bio)</label>
+                <textarea id="profile-deskripsi" placeholder="Ceritakan tentang diri Anda untuk ditampilkan di halaman portofolio..." rows="4"></textarea>
+            </div>
+
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Tempat Lahir</label>
+                    <input type="text" id="tempat-lahir" placeholder="City" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Tanggal Lahir</label>
+                    <input type="date" id="tanggal-lahir" required>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Email</label>
+                    <input type="email" id="profile-email" placeholder="your.email@example.com" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Telepon / WhatsApp</label>
+                    <input type="text" id="profile-telepon" placeholder="08123456789" required>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Universitas</label>
+                    <input type="text" id="profile-universitas" placeholder="University Name" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Fakultas</label>
+                    <input type="text" id="profile-fakultas" placeholder="Faculty Name" required>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Program Studi</label>
+                    <input type="text" id="profile-prodi" placeholder="Study Program" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Semester</label>
+                    <input type="number" id="profile-semester" placeholder="5" required>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Alamat</label>
+                <textarea id="profile-alamat" placeholder="Your Address" rows="3" required></textarea>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Foto Profil</label>
+                <input type="file" id="input-avatar-profil" accept="image/*">
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Format: JPG, PNG. Rekomendasi &lt; 500KB.</p>
+            </div>
+
+            <button type="submit" class="btn-pill"><i class="fas fa-save"></i> Simpan Data Diri</button>
+        </form>
+    </div>
+
+    <div class="admin-card">
+        <h3 style="font-weight: 600; margin-bottom: 20px; font-size: 18px;">Ubah Password</h3>
+        <form id="form-ubah-password">
+            <div style="display: flex; flex-direction: column; margin-bottom: 15px;">
+                <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Password Saat Ini</label>
+                <input type="password" id="pass-current" placeholder="Masukkan password saat ini" required>
+            </div>
+            
+            <div class="form-grid-2" style="margin-bottom: 20px;">
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Password Baru</label>
+                    <input type="password" id="pass-new" placeholder="Masukkan password baru" required>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <label style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Konfirmasi Password Baru</label>
+                    <input type="password" id="pass-confirm" placeholder="Ulangi password baru" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-pill"><i class="fas fa-key"></i> Ubah Password</button>
+        </form>
+    </div>
+
+    <div class="admin-card" style="margin-bottom: 30px;">
+        <h3 style="font-weight: 600; margin-bottom: 20px; font-size: 18px;">Preview Data Diri</h3>
+        <div class="preview-card-container">
+            <img id="preview-avatar" class="avatar-container-view" src="https://via.placeholder.com/120">
+            
+            <table class="table-preview">
+                <tr><td class="label-view">Nama Lengkap:</td><td id="view-nama" class="value-view">-</td></tr>
+                <tr><td class="label-view">Nama Panggilan:</td><td id="view-panggilan" class="value-view">-</td></tr>
+                <tr><td class="label-view">Tempat, Tanggal Lahir:</td><td id="view-ttl" class="value-view">-</td></tr>
+                <tr><td class="label-view">Email:</td><td id="view-email" class="value-view">-</td></tr>
+                <tr><td class="label-view">Telepon/WA:</td><td id="view-telepon" class="value-view">-</td></tr>
+                <tr><td class="label-view">Universitas:</td><td id="view-universitas" class="value-view">-</td></tr>
+                <tr><td class="label-view">Fakultas:</td><td id="view-fakultas" class="value-view">-</td></tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='admin/js/profiles.js') }}"></script>
+{% endblock %}

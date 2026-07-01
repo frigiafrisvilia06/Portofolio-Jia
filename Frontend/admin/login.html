@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/login.css') }}">
+    
+    <style>
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 40px;
+        }
+        #togglePassword {
+            position: absolute;
+            right: 12px;
+            cursor: pointer;
+            color: #8b839a;
+        }
+        #togglePassword:hover {
+            color: #a855f7;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Panel Login</h2>
+        
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert-danger" style="margin-bottom: 15px;">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login_bp.admin_login') }}" method="POST">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan Username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Masukkan Password" required>
+                    <i class="fas fa-eye" id="togglePassword"></i>
+                </div>
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+
+        <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Portofolio</a>
+    </div>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            // Tukar tipe input antara password dan text
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Tukar ikon mata terbuka / mata tertutup
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>

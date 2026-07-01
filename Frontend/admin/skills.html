@@ -1,0 +1,168 @@
+{% extends 'Frontend/admin/base.html' %}
+
+{% block title %}Kelola Skills - Admin Panel{% endblock %}
+{% block header_title %}Kelola Skills{% endblock %}
+
+{% block extra_css %}
+<style>
+    .icon-picker-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 8px;
+        max-height: 240px;
+        overflow-y: auto;
+        padding: 12px;
+        background: #faf5ff;
+        border: 2px solid #ede9fe;
+        border-radius: 12px;
+    }
+    .icon-picker-grid::-webkit-scrollbar { width: 6px; }
+    .icon-picker-grid::-webkit-scrollbar-thumb { background: #c084fc; border-radius: 3px; }
+
+    .icon-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 4px;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: white;
+    }
+    .icon-option i {
+        font-size: 24px;
+        color: #4a4458;
+        margin-bottom: 4px;
+        transition: color 0.2s ease;
+    }
+    .icon-option span {
+        font-size: 9px;
+        color: #8b839a;
+        text-align: center;
+        line-height: 1.2;
+        word-break: break-all;
+    }
+    .icon-option:hover {
+        border-color: #c084fc;
+        background: #f3e8ff;
+    }
+    .icon-option:hover i { color: #a855f7; }
+    .icon-option.selected {
+        border-color: #a855f7;
+        background: linear-gradient(135deg, #f3e8ff, #fce7f3);
+        box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);
+    }
+    .icon-option.selected i { color: #a855f7; }
+
+    .selected-icon-preview {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, #faf5ff, #fce7f3);
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+    .selected-icon-preview i {
+        font-size: 28px;
+        color: #a855f7;
+    }
+    .selected-icon-preview span {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e1b2e;
+    }
+
+    .icon-search-box {
+        position: relative;
+        margin-bottom: 10px;
+    }
+    .icon-search-box i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8b839a;
+        font-size: 14px;
+        pointer-events: none;
+    }
+    .icon-search-box input {
+        width: 100%;
+        padding: 11px 16px 11px 38px;
+        border: 2px solid #ede9fe;
+        border-radius: 10px;
+        font-size: 14px;
+        font-family: 'Nunito', sans-serif;
+        background: #faf5ff;
+        color: #1e1b2e;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+    .icon-search-box input::placeholder { color: #8b839a; }
+    .icon-search-box input:focus {
+        border-color: #a855f7;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+    }
+    .icon-no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 20px;
+        color: #8b839a;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="skills-manager-container">
+    
+    <div class="admin-card" style="margin-bottom: 30px;">
+        <h3 id="form-title" style="font-weight: 700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">Tambah / Edit Skill</h3>
+        <form id="form-skill">
+            <input type="hidden" id="skill-id" value="">
+            
+            <div style="margin-bottom: 20px;">
+                <label for="nama_skill">Nama Skill</label>
+                <input type="text" id="nama_skill" placeholder="Contoh: Python" required>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label>Pilih Icon</label>
+                <input type="hidden" id="kategori" value="">
+                <div class="selected-icon-preview" id="selected-icon-preview" style="display: none;">
+                    <i id="preview-icon" class="fa-solid fa-code"></i>
+                    <span id="preview-label">Belum ada icon dipilih</span>
+                </div>
+                <div class="icon-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="icon-search" placeholder="Cari icon... (contoh: python, database, react)">
+                </div>
+                <div class="icon-picker-grid" id="icon-picker-grid">
+                    <!-- Icons will be populated by JS -->
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-pill" id="btn-save"><i class="fas fa-save"></i> Simpan</button>
+                <button type="button" class="btn-pill" id="btn-cancel" style="background: linear-gradient(135deg, #9ca3af, #6b7280); color: #fff; padding: 10px 24px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Batal</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="admin-card">
+        <h3 style="font-weight: 700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">Daftar Skills</h3>
+        
+        <div id="skills-grid-container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+            <p style="color: var(--text-muted);">Memuat data keahlian dari TiDB...</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='admin/js/skills.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #a855f7;
+    --primary-dark: #7c3aed;
+    --primary-light: #c084fc;
+    --accent-pink: #f472b6;
+    --bg-gradient: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 30%, #fce7f3 70%, #e9d5ff 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --text-dark: #1e1b2e;
+    --text-body: #4a4458;
+    --text-muted: #8b839a;
+    --border-light: #ede9fe;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+body::before {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+}
+
+body::after {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(244, 114, 182, 0.2) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+}
+
+.login-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 48px 40px;
+    border-radius: 24px;
+    width: 400px;
+    box-shadow: 0 20px 60px rgba(168, 85, 247, 0.15), 0 4px 20px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 1;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--accent-pink));
+    border-radius: 4px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    color: var(--text-dark);
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(250, 245, 255, 0.8);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    color: var(--text-dark);
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent-pink) 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.45);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.alert-danger {
+    background: rgba(244, 114, 182, 0.1);
+    border: 1px solid rgba(244, 114, 182, 0.3);
+    color: #be185d;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--primary-dark);
+    gap: 12px;
+}

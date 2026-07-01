@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Panel Portofolio{% endblock %}</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/base.css') }}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-gem"></i> <span>Admin Panel</span>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="{{ url_for('dashboard_admin.admin_dashboard') }}" class="menu-item">
+                    <i class="fas fa-chart-pie"></i> <span>Dashboard</span>
+                </a>
+                <a href="{{ url_for('experience_admin.experience_page') }}" class="menu-item">
+                    <i class="fas fa-briefcase"></i> <span>Pengalaman</span>
+                </a>
+                <a href="{{ url_for('projects_admin.projects_page') }}" class="menu-item">
+                    <i class="fas fa-project-diagram"></i> <span>Proyek</span>
+                </a>
+                <a href="{{ url_for('skills_admin.skills_page') }}" class="menu-item">
+                    <i class="fas fa-tools"></i> <span>Skills</span>
+                </a>
+                <a href="{{ url_for('profiles_admin.profiles_page') }}" class="menu-item">
+                    <i class="fas fa-user-cog"></i> <span>Profil Akun</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="{{ url_for('login_bp.admin_logout') }}" id="logout-button" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> <span>Keluar</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="content-header">
+                <h2>{% block header_title %}Selamat Datang{% endblock %}</h2>
+                <div class="user-info">
+                    <span>Halo, <strong>{{ session.get('username', 'Admin') }}</strong></span>
+                </div>
+            </header>
+            
+            <section class="content-body">
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='admin/js/base.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

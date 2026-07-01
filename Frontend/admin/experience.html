@@ -1,0 +1,66 @@
+{% extends 'Frontend/admin/base.html' %}
+
+{% block title %}Kelola Pengalaman - Admin Panel{% endblock %}
+{% block header_title %}Kelola Pengalaman{% endblock %}
+
+{% block content %}
+<div class="experience-manager-container">
+    
+    <div class="admin-card" style="margin-bottom: 30px; background: #fff; border-radius: 12px; padding: 24px;">
+        <h3 id="form-title" style="font-weight: 600; margin-bottom: 20px;">Tambah / Edit Pengalaman</h3>
+        <form id="form-experience">
+            <input type="hidden" id="experience-id" value="">
+            
+            <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="tanggal_mulai" style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Tanggal / Tahun Mulai</label>
+                    <input type="text" id="tanggal_mulai" placeholder="Contoh: 2024" required 
+                           style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px;">
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="tanggal_selesai" style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Tanggal / Tahun Selesai</label>
+                    <input type="text" id="tanggal_selesai" placeholder="Contoh: Sekarang atau 2025"
+                           style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px;">
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="posisi" style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Jabatan / Posisi</label>
+                    <input type="text" id="posisi" placeholder="Contoh: Backend Developer" required 
+                           style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px;">
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column;">
+                    <label for="perusahaan_organisasi" style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Perusahaan / Organisasi</label>
+                    <input type="text" id="perusahaan_organisasi" placeholder="Contoh: PT. ABC" required
+                           style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px;">
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-bottom: 20px;">
+                <label for="deskripsi" style="margin-bottom: 8px; font-size: 14px; font-weight: 600;">Deskripsi</label>
+                <textarea id="deskripsi" placeholder="Deskripsikan pengalaman Anda..." rows="4" required
+                          style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; resize: vertical; font-family: inherit;"></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-pill" id="btn-save"><i class="fas fa-save"></i> Simpan</button>
+                <button type="button" class="btn-pill" id="btn-cancel" style="background: linear-gradient(135deg, #9ca3af, #6b7280); color: #fff; padding: 10px 24px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Batal</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="admin-card" style="background: #fff; border-radius: 12px; padding: 24px;">
+        <h3 style="font-weight: 600; margin-bottom: 20px;">Daftar Pengalaman</h3>
+        
+        <div id="experience-list-container" style="display: flex; flex-direction: column; gap: 20px;">
+            <p style="color: var(--text-muted);">Memuat riwayat pengalaman dari TiDB Cloud...</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='admin/js/experience.js') }}"></script>
+{% endblock %}

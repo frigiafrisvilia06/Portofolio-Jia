@@ -1,0 +1,57 @@
+{% extends 'Frontend/admin/base.html' %}
+
+{% block title %}Kelola Proyek - Admin Panel{% endblock %}
+{% block header_title %}Kelola Proyek{% endblock %}
+
+{% block content %}
+<div class="projects-manager-container">
+    
+    <div class="admin-card" style="margin-bottom: 30px; background: #fff; border-radius: 12px; padding: 24px;">
+        <h3 id="form-title" style="font-weight: 600; margin-bottom: 20px;">Tambah / Edit Proyek</h3>
+        <form id="form-proyek-admin">
+            <input type="hidden" id="project-id" value="">
+            <input type="hidden" id="existing-gambar-url" value="">
+            
+            <div style="margin-bottom: 15px;">
+                <label for="admin-judul-proyek" style="margin-bottom: 8px; font-size: 14px; font-weight: 600; display: block;">Judul Proyek</label>
+                <input type="text" id="admin-judul-proyek" placeholder="Contoh: Website Portofolio" required 
+                       style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="admin-deskripsi-proyek" style="margin-bottom: 8px; font-size: 14px; font-weight: 600; display: block;">Deskripsi</label>
+                <textarea id="admin-deskripsi-proyek" placeholder="Deskripsikan proyek..." rows="3" required
+                          style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;"></textarea>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="admin-link-proyek" style="margin-bottom: 8px; font-size: 14px; font-weight: 600; display: block;">Link Proyek (GitHub / Live)</label>
+                <input type="url" id="admin-link-proyek" placeholder="Contoh: https://github.com/..." required 
+                       style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="input-file-gambar" style="margin-bottom: 8px; font-size: 14px; font-weight: 600; display: block;">Foto Proyek</label>
+                <input type="file" id="input-file-gambar" accept="image/*" style="font-size: 14px;">
+            </div>
+            
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-pill" id="btn-save"><i class="fas fa-save"></i> Simpan Proyek</button>
+                <button type="button" class="btn-pill" id="btn-cancel" style="background: linear-gradient(135deg, #9ca3af, #6b7280); color: #fff; padding: 10px 24px; border: none; border-radius: 50px; font-weight: 700; cursor: pointer; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Batal</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="admin-card" style="background: #fff; border-radius: 12px; padding: 24px;">
+        <h3 style="font-weight: 600; margin-bottom: 20px;">Daftar Proyek</h3>
+        <div id="projects-list-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+            <p style="color: var(--text-muted);">Memuat proyek dari TiDB Cloud...</p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='admin/js/projects.js') }}"></script>
+{% endblock %}

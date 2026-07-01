@@ -1,0 +1,82 @@
+/* Profiles page-specific styles */
+/* Extends base.css for the profile/account management view */
+
+/* Layout Grid for Form */
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+    .form-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* File Input override */
+input[type="file"] {
+    background: #faf5ff;
+    border: 2px dashed #ede9fe;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+input[type="file"]:hover {
+    border-color: #c084fc;
+}
+
+/* Preview Area Card */
+.preview-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #faf5ff 0%, #fce7f3 100%);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid #ede9fe;
+}
+
+.avatar-container-view {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffffff;
+    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+    margin-bottom: 24px;
+}
+
+/* Preview Table */
+.table-preview {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-preview tr {
+    border-bottom: 1px solid #ede9fe;
+}
+
+.table-preview tr:last-child {
+    border-bottom: none;
+}
+
+.table-preview td {
+    padding: 14px 0;
+    font-size: 14px;
+}
+
+.table-preview td.label-view {
+    color: #8b839a;
+    font-weight: 600;
+}
+
+.table-preview td.value-view {
+    text-align: right;
+    font-weight: 700;
+    color: #1e1b2e;
+}
+
